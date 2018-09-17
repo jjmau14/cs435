@@ -26,7 +26,7 @@ public class Profile1Reducer extends Reducer<Text, Text, Text, Text> {
         Collections.sort(al);
 
         for (String s : al)
-            context.write(key, new Text(s));
+            context.write(new Text(s.substring(0,1)), new Text(s));
 
     }
 }

@@ -23,6 +23,10 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
                 context.write(new Text(s.substring(0, 1)), new Text(s));
                 count++;
                 if (count > 500) break;
+            } else if (s.length() == 1) {
+                context.write(new Text(s), new Text(s));
+                count++;
+                if (count > 500) break;
             }
         }
 

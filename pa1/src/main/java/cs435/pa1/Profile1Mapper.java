@@ -1,6 +1,5 @@
 package cs435.pa1;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
@@ -20,7 +19,7 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
 
         int count = 0;
         for (String s : unigrams) {
-            context.write(new Text(s), new Text());
+            context.write(new Text(s.substring(0,1)), new Text(s));
             count++;
             if (count > 500) break;
         }

@@ -1,6 +1,5 @@
 package cs435.pa1;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -14,7 +13,7 @@ public class Profile1Reducer extends Reducer<Text, Text, Text, Text> {
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-        /*HashSet<String> unigrams = new HashSet<String>();
+        HashSet<String> unigrams = new HashSet<String>();
 
         int count = 0;
         for (Text t: values) {
@@ -27,8 +26,7 @@ public class Profile1Reducer extends Reducer<Text, Text, Text, Text> {
         Collections.sort(al);
 
         for (String s : al)
-            context.write(new Text(s.substring(0,1)), new Text(s));*/
-        context.write(key, new Text());
+            context.write(new Text(s.substring(0,1)), new Text(s));
 
     }
 }

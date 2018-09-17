@@ -7,7 +7,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 import java.util.*;
 
-public class Profile1Mapper extends Mapper<Object, Text, Text, IntWritable> {
+public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
 
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
@@ -20,7 +20,7 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, IntWritable> {
 
         int count = 0;
         for (String s : unigrams) {
-            context.write(new Text(s), new IntWritable(1));
+            context.write(new Text(s), new Text());
             count++;
             if (count > 500) break;
         }

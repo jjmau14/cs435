@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class Profile1Reducer extends Reducer<Text, IntWritable, Text, Text> {
+public class Profile1Reducer extends Reducer<Text, Text, Text, Text> {
 
     @Override
-    protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+    protected void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
         /*HashSet<String> unigrams = new HashSet<String>();
 
@@ -28,10 +28,7 @@ public class Profile1Reducer extends Reducer<Text, IntWritable, Text, Text> {
 
         for (String s : al)
             context.write(new Text(s.substring(0,1)), new Text(s));*/
-        for (IntWritable t: values) {
-            context.write(key, key);
-            break;
-        }
+        context.write(key, new Text());
 
     }
 }

@@ -13,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Profile1Mapper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Profile1Mapper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#461#469#0" expanded="true" />
@@ -48,7 +48,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Profile1Reducer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Profile1Reducer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="390">
@@ -82,9 +82,9 @@
         <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1.java" />
         <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/PA1.java" />
         <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
         <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
       </list>
     </option>
   </component>
@@ -396,17 +396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#461#469#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -414,6 +403,17 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#505#513#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#461#469#0" expanded="true" />
           </folding>
         </state>
       </provider>

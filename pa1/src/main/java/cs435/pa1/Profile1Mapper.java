@@ -17,7 +17,7 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
 
         StringTokenizer tokenizer = new StringTokenizer(value.toString());
         while ( tokenizer.hasMoreTokens() )
-            unigrams.add(tokenizer.nextToken());
+            unigrams.add(tokenizer.nextToken().replaceAll("[^a-zA-Z ]", ""));
 
         for (String s : unigrams) {
             if (s.length() > 0) {

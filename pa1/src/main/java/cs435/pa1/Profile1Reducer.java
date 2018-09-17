@@ -24,7 +24,7 @@ public class Profile1Reducer extends Reducer<Text, Text, Text, Text> {
         }
 
         ArrayList<String> al = new ArrayList<String>(unigrams);
-        //Collections.sort(al);
+        Collections.sort(al);
 
         for (String s : al)
             context.write(key, new Text(s));

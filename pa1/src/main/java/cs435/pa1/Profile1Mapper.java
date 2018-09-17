@@ -15,15 +15,13 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
         // Ensure only unique items
         HashSet<String> unigrams = new HashSet<String>();
 
-        for (String s : value.toString().split(" "))
-            unigrams.add(s);
+        StringTokenizer tokenizer = new StringTokenizer(value.toString());
+        while ( tokenizer.hasMoreTokens() )
+            unigrams.add(tokenizer.nextToken());
 
-        int count = 0;
         for (String s : unigrams) {
             if (s.length() > 0) {
                 context.write(new Text("key"), new Text(s));
-                count++;
-                if (count > 500) break;
             }
         }
 

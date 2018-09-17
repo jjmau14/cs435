@@ -22,6 +22,8 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
         for (String s : unigrams) {
             if (s.length() > 0) {
                 context.write(new Text("key"), new Text(s));
+                count++;
+                if (count > 500) break;
             }
         }
 

@@ -16,21 +16,21 @@
       <file leaf-file-name="Profile1Mapper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="23" column="39" lean-forward="false" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#468#476#0" expanded="true" />
+                <element signature="e#461#469#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PA1.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PA1.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/PA1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="28" column="45" lean-forward="false" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+            <state relative-caret-position="390">
+              <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Profile1Reducer.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Profile1Reducer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="37" />
+            <state relative-caret-position="390">
+              <caret line="26" column="10" lean-forward="false" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#519#527#0" expanded="true" />
@@ -80,11 +80,11 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/PA1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java" />
       </list>
     </option>
   </component>
@@ -340,7 +340,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#468#476#0" expanded="true" />
+            <element signature="e#461#469#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -386,34 +386,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/PA1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="37" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="37" />
+        <state relative-caret-position="390">
+          <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#519#527#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Mapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="345">
+          <caret line="23" column="39" lean-forward="false" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#468#476#0" expanded="true" />
+            <element signature="e#461#469#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/PA1.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cs435/pa1/Profile1Reducer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="28" column="45" lean-forward="false" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        <state relative-caret-position="390">
+          <caret line="26" column="10" lean-forward="false" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#519#527#0" expanded="true" />
           </folding>
         </state>
       </provider>

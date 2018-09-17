@@ -25,7 +25,7 @@ public class PA1 {
 
         job.setNumReduceTasks(3);
 
-        job.setMapOutputKeyClass(IntWritable.class);
+        job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(Text.class);
 
         job.setOutputKeyClass(Text.class);

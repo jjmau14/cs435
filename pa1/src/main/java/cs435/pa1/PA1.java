@@ -22,9 +22,6 @@ public class PA1 {
 
         job.setReducerClass(Profile1Reducer.class);
 
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(Text.class);
-
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 

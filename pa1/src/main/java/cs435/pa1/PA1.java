@@ -22,7 +22,7 @@ public class PA1 {
 
         job.setReducerClass(Profile1Reducer.class);
 
-        job.setNumReduceTasks(26);
+        job.setNumReduceTasks(3);
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);

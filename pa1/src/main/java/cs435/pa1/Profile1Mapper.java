@@ -1,12 +1,13 @@
 package cs435.pa1;
 
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 import java.util.*;
 
-public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
+public class Profile1Mapper extends Mapper<Object, Text, IntWritable, Text> {
 
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
@@ -20,13 +21,8 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
         int count = 0;
         for (String s : unigrams) {
             if (s.length() > 0) {
-                context.write(new Text(s.substring(0, 1)), new Text(s));
-                count++;
-                if (count > 500) break;
-            } else if (s.length() == 1) {
-                context.write(new Text(s), new Text(s));
-                count++;
-                if (count > 500) break;
+                int k = s.charAt(0) < 'a' ? 0 :  s.charAt(0) < 'z' ? 1 : 2;
+                context.write(new IntWritable(k), new Text());
             }
         }
 

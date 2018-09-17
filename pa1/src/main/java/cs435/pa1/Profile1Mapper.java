@@ -19,9 +19,11 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
 
         int count = 0;
         for (String s : unigrams) {
-            context.write(new Text(s.substring(0,1)), new Text(s));
-            count++;
-            if (count > 500) break;
+            if (s.length() > 0) {
+                context.write(new Text(s.substring(0, 1)), new Text(s));
+                count++;
+                if (count > 500) break;
+            }
         }
 
 

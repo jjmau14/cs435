@@ -23,7 +23,9 @@ public class PA1 {
 
         job.setReducerClass(Profile1Reducer.class);
 
-        job.setNumReduceTasks(1);
+        job.setNumReduceTasks(26);
+
+        job.setPartitionerClass(Profile1Partitioner.class);
 
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(Text.class);

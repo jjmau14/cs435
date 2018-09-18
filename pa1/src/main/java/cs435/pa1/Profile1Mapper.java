@@ -12,21 +12,30 @@ public class Profile1Mapper extends Mapper<Object, Text, Text, Text> {
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
-        // Ensure only unique items
-        HashSet<String> unigrams = new HashSet<String>();
-
         StringTokenizer tokenizer = new StringTokenizer(value.toString());
-        while ( tokenizer.hasMoreTokens() )
-            unigrams.add(tokenizer.nextToken().replaceAll("[^a-zA-Z ]", ""));
 
-        for (String s : unigrams) {
-            if (s.length() > 0) {
-                context.write(new Text("key"), new Text(s));
+        Text unigramText = new Text();
+        Text noValue = new Text();
+
+        while ( tokenizer.hasMoreTokens() ) {
+
+            String unigram = tokenizer.nextToken();
+
+            // If title of wiki - parse out just the title (remove doc id)
+            if (unigram.contains("<===>")) {
+                unigram = unigram.substring(unigram.lastIndexOf("<====>"));
             }
+
+            // Remove all punctuation
+            unigram = unigram.replaceAll("[^a-zA-Z ]", "").toLowerCase();
+
+            if (!unigram.equals("")) {
+                unigramText.set(unigram);
+                context.write(unigramText, noValue);
+            }
+
         }
 
-
     }
-
 
 }

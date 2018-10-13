@@ -10,34 +10,32 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class Job5 {
 
     /**
-     * Ouput: (DocID, {word \t tfidf})
-     */
+     *  Map inputs to DocumentID, (Unigram, TermFrequency)
+     * */
     public static class Job5MapperClass1 extends Mapper<Object, Text, Text, Text> {
-        @Override
-        public void map(Object key, Text value, Context context)
-                throws IOException, InterruptedException{
+
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException{
 
             String docID = "";
             String unigram = "";
-            String tf_idf = "";
+            String termFrequency = "";
             StringTokenizer itr = new StringTokenizer(value.toString());
 
             while (itr.hasMoreTokens()) {
                 docID = itr.nextToken();
                 unigram = "A" + itr.nextToken();
-                tf_idf = itr.nextToken();
-                context.write(new Text(docID), new Text(unigram + "\t" + tf_idf));
+                termFrequency = itr.nextToken();
+                context.write(new Text(docID), new Text(unigram + "\t" + termFrequency));
             }
         }
     }
 
     /**
-     * Ouput: (DocID, {eachSentence})
-     */
+     *
+     * */
     public static class Job5MapperClass2 extends Mapper<Object, Text, Text, Text> {
-        @Override
-        public void map(Object key, Text value, Context context)
-                throws IOException, InterruptedException {
+
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
             //split on periods to get each sentence
             String[] sentences = value.toString().split("\\.");
@@ -86,23 +84,9 @@ public class Job5 {
                 }
             }
         }
+
     }
 
-
-    /**
-     * Job 5 Partitioner:
-     * 30 partitioners
-     * partitioned by their docID's hash % numberOfPartitions
-     * all unigrams with the same docID will go to the same reducer
-     */
-    public static class Job5Partitioner extends Partitioner<Text, Text>{
-
-        public int getPartition(Text key, Text Value, int numPartitions){
-
-            int hash = Math.abs(key.toString().hashCode());
-            return hash % numPartitions;
-        }
-    }
 
     /**
      * Job 5 Reducer:
@@ -112,7 +96,6 @@ public class Job5 {
      */
     public static class Job5Reducer extends Reducer<Text, Text, Text, Text> {
 
-        @Override
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
             ArrayList<String> sentences = new ArrayList<String>();
@@ -202,6 +185,7 @@ public class Job5 {
             context.write(key, new Text(finalSentences));
 
         }
+
     }
 
 }

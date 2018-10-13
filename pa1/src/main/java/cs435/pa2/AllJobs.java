@@ -49,7 +49,6 @@ public class AllJobs {
         job3.setMapOutputKeyClass(Text.class);
         job3.setMapOutputValueClass(Text.class);
         job3.setNumReduceTasks(32);
-        job3.setPartitionerClass(Job3.Job3Partitioner.class);
         job3.setReducerClass(Job3.Job3Reducer.class);
         job3.setOutputKeyClass(Text.class);
         job3.setOutputValueClass(Text.class);
@@ -60,7 +59,6 @@ public class AllJobs {
         job4.setMapOutputKeyClass(Text.class);
         job4.setMapOutputValueClass(Text.class);
         job4.setNumReduceTasks(32);
-        job4.setPartitionerClass(Job4.Job4Partitioner.class);
         job4.setReducerClass(Job4.Job4Reducer.class);
         job4.setOutputKeyClass(Text.class);
         job4.setOutputValueClass(Text.class);
@@ -68,7 +66,6 @@ public class AllJobs {
         Job job5 = Job.getInstance(conf, "PA2 Job 5");
         job5.setJarByClass(Job5.class);
         job5.setNumReduceTasks(32);
-        job5.setPartitionerClass(Job5.Job5Partitioner.class);
         job5.setReducerClass(Job5.Job5Reducer.class);
         job5.setOutputKeyClass(Text.class);
         job5.setOutputValueClass(Text.class);

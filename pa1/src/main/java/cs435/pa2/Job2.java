@@ -14,6 +14,9 @@ public class Job2 {
 
     public static class Job2Mapper extends Mapper<Object, Text, Text, Text> {
 
+        /**
+         *  Map inputs to DocumentID, (Unigram, Frequency)
+         * */
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
             String docId = "";
@@ -29,14 +32,12 @@ public class Job2 {
                 context.write(new Text(docId), new Text(unigram + "\t" + frequency));
             }
         }
+
     }
 
     /**
-     * Job 2 Reducer:
-     * 1. Figure out the max raw frequency of any term in the article
-     * 2. Compute the TF for each term using the max
-     * Output: < DocumentID, {Unigram \t TFvalue}
-     */
+     *  Writes: Document ID <TAB> Unigram <TAB> TermFrequency
+     * */
     public static class Job2Reducer extends Reducer<Text, Text, Text, Text> {
 
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
@@ -82,6 +83,7 @@ public class Job2 {
 
             }
         }
+
     }
 
 }

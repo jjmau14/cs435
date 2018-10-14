@@ -37,50 +37,32 @@ public class Job5 {
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
-            //split on periods to get each sentence
+            // Split by sentences
             String[] sentences = value.toString().split("\\.");
 
-            //tokenize to get each unigram
-            boolean newArticle = true;
-            String lastToken = "";
-            String docID_ = "";
+            String docId = "";
 
             for (int i = 0; i < sentences.length; i++) {
-                //read and line and tokenize the string
+
                 StringTokenizer itr = new StringTokenizer(sentences[i]);
-                //while there are more tokens
+
                 String sentence = "B";
+
                 while (itr.hasMoreTokens()) {
-                    String uniToken = itr.nextToken();
 
-                    //if it is a new article then you need to skip over the title
-                    //Melissa Paull<====>4788386<====>Melissa
-                    if (newArticle) {
-                        //skip over tokens before first marker is found
-                        if (!uniToken.contains("<====>")) {
-                            continue;
-                        }
-                        //otherwise you need to grab the text after the second marker as token
-                        else {
-                            docID_ = uniToken.substring(uniToken.indexOf("<====>") + 6, uniToken.lastIndexOf("<====>"));
-                            uniToken = uniToken.substring(uniToken.lastIndexOf("<====>"));
-                            newArticle = false;
-                        }
+                    String token = itr.nextToken();
+
+                    if (token.contains("<====>")) {
+                        docId = token.substring(token.indexOf("<====>") + 6, token.lastIndexOf("<====>"));
+                        token = token.substring(token.lastIndexOf("<====>"));
                     }
 
-                    sentence += uniToken.replaceAll("<====>", "") + " ";
-
-                    //if last token was new line and this token was new line then it will start a new article
-                    if (lastToken.equals("\n") && uniToken.equals("\n")) {
-                        newArticle = true;
-                    } else {
-                        lastToken = uniToken;
-                    }
+                    sentence += token.replaceAll("<====>", "") + " ";
 
                 }
 
-                if(!sentence.equals("\n")) {
-                    context.write(new Text(docID_), new Text(sentence + "\t" + i));
+                if(!sentence.equals("")) {
+                    context.write(new Text(docId), new Text(sentence + "\t" + i));
                 }
             }
         }

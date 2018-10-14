@@ -33,7 +33,7 @@ public class Job1 {
                 // If title of wiki - parse out just the title (remove doc id)
                 if (unigram.contains("<====>")) {
                     docId = unigram.substring(unigram.indexOf("<====>") + 6, unigram.lastIndexOf("<====>"));
-                    continue;
+                    unigram = unigram.substring(unigram.lastIndexOf("<====>"));
                 }
 
                 // Remove all punctuation (anything thats not A-Z and 0-9)

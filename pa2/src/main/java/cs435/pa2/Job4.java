@@ -37,9 +37,9 @@ public class Job4 {
                 termFrequency = itr.nextToken();
                 n = itr.nextToken();
 
-                double IDF = Math.log10( this.N / Integer.parseInt(n) );
+                double IDF = Math.log10( this.N / Double.parseDouble(n) );
 
-                double TF_IDF = Integer.parseInt(termFrequency) * IDF;
+                double TF_IDF = Double.parseDouble(termFrequency) * IDF;
 
                 context.write(new Text(docID), new Text(unigram + "\t" + TF_IDF));
             }

@@ -61,7 +61,7 @@ public class Job5 {
 
                 }
 
-                if(!sentence.equals("")) {
+                if (!sentence.equals("")) {
                     context.write(new Text(docId), new Text(sentence + "\t" + i));
                 }
             }
@@ -71,10 +71,8 @@ public class Job5 {
 
 
     /**
-     * Job 5 Reducer:
-     * Input: (DocID, Iterable<(Sentence1), (word1,tfidf), (word2, tfldf), (Sentence2), ...>)
-     * Select top 3 sentences with highest SentenceTF-IDF value for a given document
-     * output: < DocumentID, {top three sentences} >
+     *  Reduces Unigrams, Frequency and multi input sentences to top 3 sentences
+     *  based on top 5 unigrams
      */
     public static class Job5Reducer extends Reducer<Text, Text, Text, Text> {
 
@@ -94,8 +92,7 @@ public class Job5 {
                     Double tf = Double.parseDouble(unigramTFs[1]);
 
                     unigramTF.put(unigram, tf);
-                }
-                else {
+                } else {
                     sentences.add(val.toString().substring(1));
                 }
             }
@@ -108,25 +105,26 @@ public class Job5 {
 
                 StringTokenizer itr = new StringTokenizer(s);
 
-                while(itr.hasMoreTokens()){
+                while (itr.hasMoreTokens()) {
 
                     String unigram = itr.nextToken();
                     unigram = unigram.replaceAll("[^A-Za-z0-9]","").toLowerCase();
 
+                    // Skip empty unigrams
                     if(unigram.equals("")) {
                         continue;
                     }
 
                     double TF_IDF = -1;
-                    if(unigramTF.containsKey(unigram)){
+                    if (unigramTF.containsKey(unigram)) {
                         TF_IDF = unigramTF.get(unigram);
                     }
 
-                    if(!top5Unigrams.values().contains(unigram)){
+                    if (!top5Unigrams.values().contains(unigram)) {
 
                         top5Unigrams.put(TF_IDF, unigram);
 
-                        if(top5Unigrams.size() > 5){
+                        if (top5Unigrams.size() > 5) {
                             top5Unigrams.remove(top5Unigrams.firstKey());
                         }
                     }
@@ -134,29 +132,31 @@ public class Job5 {
 
                 Set<Double> top5values = top5Unigrams.keySet();
                 Double SentenceTF_IDF = 0.0;
-                for(Double val : top5values){
+                for (Double val : top5values) {
                     SentenceTF_IDF += val;
                 }
 
                 top3Sentences.put(SentenceTF_IDF, s);
-                if(top3Sentences.size() > 3){
+                if (top3Sentences.size() > 3) {
                     top3Sentences.remove(top3Sentences.firstKey());
                 }
 
             }
 
             TreeMap<Double, String> sortOrder = new TreeMap<Double, String>();
-            for(String s : top3Sentences.values()) {
+            for (String s : top3Sentences.values()) {
                 String[] idSentences = s.split("\t");
                 sortOrder.put(Double.parseDouble(idSentences[1]), idSentences[0]);
             }
 
             Collection<String> sentenceOrder = sortOrder.values();
-            String finalSentence = "";
-            for(String s : sentenceOrder){
-                finalSentence += s + "\n\t";
+            String threeSentences = "";
+
+            for (String s : sentenceOrder) {
+                threeSentences += s + "\n\t";
             }
-            context.write(key, new Text(finalSentence));
+
+            context.write(key, new Text(threeSentences));
 
         }
 

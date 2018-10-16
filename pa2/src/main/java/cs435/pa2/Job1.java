@@ -39,7 +39,7 @@ public class Job1 {
                 // Remove all punctuation (anything thats not A-Z and 0-9)
                 unigram = unigram.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
 
-                if (!unigram.equals("")) {
+                if (!unigram.equals("") && !docId.equals("")) {
                     context.write(new CompositeKey(docId, unigram), new IntWritable(1));
                 }
 

@@ -47,6 +47,15 @@ public class Job4 {
 
     }
 
+    public static class Job4Partitioner extends Partitioner<Text, Text>{
+
+        public int getPartition(Text key, Text Value, int numPartitions){
+
+            int hash = Math.abs(Integer.parseInt(key.toString()));
+            return hash % numPartitions;
+        }
+    }
+
     /**
      *  Same as mapper
      * */

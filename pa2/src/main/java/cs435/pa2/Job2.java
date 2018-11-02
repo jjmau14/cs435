@@ -29,10 +29,20 @@ public class Job2 {
                 docId = itr.nextToken();
                 unigram = itr.nextToken();
                 frequency = itr.nextToken();
-                context.write(new Text(docId), new Text(unigram + "\t" + frequency));
+                context.write(new Text(docId), new Text(unigram + ',' + frequency));
             }
         }
 
+    }
+
+    public static class Job2Partitioner extends Partitioner<Text, Text>{
+
+        public int getPartition(Text key, Text Value, int numPartitions){
+
+            int hash = Math.abs(key.toString().hashCode());
+            return hash % numPartitions;
+
+        }
     }
 
     /**
@@ -42,45 +52,43 @@ public class Job2 {
 
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-            Set<String> docIds = new HashSet<String>();
+            final Set<String> docIds = new HashSet<String>();
 
             if (!docIds.contains(key.toString())) {
-
-                // Increment job counter for number of docIds
                 docIds.add(key.toString());
                 context.getCounter(AllJobs.DocumentIdCounter.numDocIds.N).increment(1);
-
             }
 
-            int maxFrequency = 0;
+            double maxFrequency = -1.0;
 
-            ArrayList<Text> keyValues = new ArrayList<Text>();
+            final ArrayList<Text> store = new ArrayList<Text>();
 
-            for (Text val : values) {
+            for (final Text val : values) {
 
-                String[] unigramFrequency = val.toString().split("\t");
+                final String valText = val.toString();
 
-                int frequency = Integer.parseInt(unigramFrequency[1]);
+                store.add(new Text(valText));
 
-                if(frequency > maxFrequency){
+                String[] unigramFrequency = valText.split(",");
+                double frequency = Integer.parseInt(unigramFrequency[1]);
+
+                if (frequency > maxFrequency) {
                     maxFrequency = frequency;
                 }
 
-                keyValues.add(new Text(val.toString()));
-
             }
 
-            for(Text val : keyValues) {
+            for (final Text val : store) {
 
-                String[] unigramFrequency = val.toString().split("\t");
+                final String valText = val.toString();
 
+                String[] unigramFrequency = valText.split(",");
                 String unigram = unigramFrequency[0];
-                int frequency = Integer.parseInt(unigramFrequency[1]);
 
-                double termFrequency = 0.5 + 0.5 * (frequency/maxFrequency);
+                double frequency = Integer.parseInt(unigramFrequency[1]);
+                double TF = 0.5 + 0.5 * (frequency/maxFrequency);
 
-                context.write(key, new Text(unigram + "\t" + termFrequency));
-
+                context.write(key, new Text(unigram + "\t" + TF));
             }
         }
 

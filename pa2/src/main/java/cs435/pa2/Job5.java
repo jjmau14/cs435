@@ -38,7 +38,7 @@ public class Job5 {
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
             // Split by sentences
-            String[] sentences = value.toString().split("\\.");
+            String[] sentences = value.toString().split("\\. ");
 
             String docId = "";
 
@@ -61,7 +61,7 @@ public class Job5 {
 
                 }
 
-                if (!sentence.equals("")) {
+                if (!sentence.equals("S") && !docId.equals("")) {
                     context.write(new Text(docId), new Text(sentence + "\t" + i));
                 }
             }
@@ -69,6 +69,15 @@ public class Job5 {
 
     }
 
+
+    public static class Job5Partitioner extends Partitioner<Text, Text>{
+
+        public int getPartition(Text key, Text Value, int numPartitions){
+
+            int hash = Math.abs(key.toString().hashCode());
+            return hash % numPartitions;
+        }
+    }
 
     /**
      *  Reduces Unigrams, Frequency and multi input sentences to top 3 sentences
@@ -78,88 +87,93 @@ public class Job5 {
 
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-            ArrayList<String> sentences = new ArrayList<String>();
-            HashMap<String, Double> unigramTF = new HashMap<String, Double>();
+            final ArrayList<String> sentences = new ArrayList<String>();
+            final HashMap<String, Double> unigramTF_IDFs = new HashMap<String, Double>();
 
-            for (Text val: values) {
+            for (Text val : values) {
 
-                if(val.toString().charAt(0) == 'U'){
+                if (val.toString().charAt(0) == 'U') {
 
-                    String token = val.toString().substring(1);
-                    String[] unigramTFs = token.split("\t");
+                    String unigram = val.toString().substring(1);
+                    String[] unigramTF_IDF = unigram.split("\t");
 
-                    String unigram = unigramTFs[0];
-                    Double tf = Double.parseDouble(unigramTFs[1]);
+                    unigramTF_IDFs.put(unigramTF_IDF[0], Double.parseDouble(unigramTF_IDF[1]));
 
-                    unigramTF.put(unigram, tf);
                 } else {
+
                     sentences.add(val.toString().substring(1));
+
                 }
+
             }
 
-            TreeMap<Double, String> top3Sentences = new TreeMap<Double, String>();
+            TreeMap<Double, String> top3 = new TreeMap<Double, String>();
 
-            for(String s : sentences){
+            for (String sentence : sentences) {
 
-                TreeMap<Double, String> top5Unigrams = new TreeMap<Double, String>();
+                TreeMap<Double, String> top5 = new TreeMap<Double, String>();
 
-                StringTokenizer itr = new StringTokenizer(s);
+                StringTokenizer itr = new StringTokenizer(sentence);
 
                 while (itr.hasMoreTokens()) {
 
                     String unigram = itr.nextToken();
                     unigram = unigram.replaceAll("[^A-Za-z0-9]","").toLowerCase();
 
-                    // Skip empty unigrams
-                    if(unigram.equals("")) {
+                    if (unigram.equals("")) {
                         continue;
                     }
 
-                    double TF_IDF = -1;
-                    if (unigramTF.containsKey(unigram)) {
-                        TF_IDF = unigramTF.get(unigram);
+                    double TF_IDF = -1.0;
+                    if (unigramTF_IDFs.containsKey(unigram)) {
+                        TF_IDF = unigramTF_IDFs.get(unigram);
                     }
 
-                    if (!top5Unigrams.values().contains(unigram)) {
+                    if (!top5.values().contains(unigram)) {
+                        top5.put(TF_IDF, unigram);
 
-                        top5Unigrams.put(TF_IDF, unigram);
-
-                        if (top5Unigrams.size() > 5) {
-                            top5Unigrams.remove(top5Unigrams.firstKey());
+                        if (top5.size() > 5) {
+                            top5.remove(top5.firstKey());
                         }
+
                     }
                 }
 
-                Set<Double> top5values = top5Unigrams.keySet();
-                Double SentenceTF_IDF = 0.0;
+                Set<Double> top5values = top5.keySet();
+                double SentenceTF_IDF = 0.0;
+
                 for (Double val : top5values) {
                     SentenceTF_IDF += val;
                 }
 
-                top3Sentences.put(SentenceTF_IDF, s);
-                if (top3Sentences.size() > 3) {
-                    top3Sentences.remove(top3Sentences.firstKey());
+                top3.put(SentenceTF_IDF, sentence);
+
+                if (top3.size() > 3) {
+                    top3.remove(top3.firstKey());
                 }
 
             }
 
-            TreeMap<Double, String> sortOrder = new TreeMap<Double, String>();
-            for (String s : top3Sentences.values()) {
-                String[] idSentences = s.split("\t");
-                sortOrder.put(Double.parseDouble(idSentences[1]), idSentences[0]);
+            TreeMap<Double, String> sentenceOrder = new TreeMap<Double, String>();
+
+            for (String s : top3.values()) {
+
+                String[] sentenceValues = s.split("\t");
+                sentenceOrder.put(Double.parseDouble(sentenceValues[1]), sentenceValues[0]);
+
             }
 
-            Collection<String> sentenceOrder = sortOrder.values();
-            String threeSentences = "";
+            Collection<String> orderedSentences = sentenceOrder.values();
+            String summary = "";
 
-            for (String s : sentenceOrder) {
-                threeSentences += s + "\n\t";
+            for (String s : orderedSentences) {
+                summary += s + "\n";
             }
 
-            context.write(key, new Text(threeSentences));
+            if (summary.length() > 1)
+                context.write(key, new Text(summary));
 
         }
-
     }
 
 }

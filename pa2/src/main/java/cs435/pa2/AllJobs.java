@@ -29,6 +29,7 @@ public class AllJobs {
         job1.setMapOutputValueClass(IntWritable.class);
         job1.setCombinerClass(Job1.Job1Combiner.class);
         job1.setNumReduceTasks(32);
+        job1.setPartitionerClass(Job1.Job1Partitioner.class);
         job1.setReducerClass(Job1.Job1Reducer.class);
         job1.setOutputKeyClass(Text.class);
         job1.setOutputValueClass(IntWritable.class);
@@ -39,6 +40,7 @@ public class AllJobs {
         job2.setMapOutputKeyClass(Text.class);
         job2.setMapOutputValueClass(Text.class);
         job2.setNumReduceTasks(32);
+        job2.setPartitionerClass(Job2.Job2Partitioner.class);
         job2.setReducerClass(Job2.Job2Reducer.class);
         job2.setOutputKeyClass(Text.class);
         job2.setOutputValueClass(Text.class);
@@ -49,6 +51,7 @@ public class AllJobs {
         job3.setMapOutputKeyClass(Text.class);
         job3.setMapOutputValueClass(Text.class);
         job3.setNumReduceTasks(32);
+        job3.setPartitionerClass(Job3.Job3Partitioner.class);
         job3.setReducerClass(Job3.Job3Reducer.class);
         job3.setOutputKeyClass(Text.class);
         job3.setOutputValueClass(Text.class);
@@ -59,6 +62,7 @@ public class AllJobs {
         job4.setMapOutputKeyClass(Text.class);
         job4.setMapOutputValueClass(Text.class);
         job4.setNumReduceTasks(32);
+        job4.setPartitionerClass(Job4.Job4Partitioner.class);
         job4.setReducerClass(Job4.Job4Reducer.class);
         job4.setOutputKeyClass(Text.class);
         job4.setOutputValueClass(Text.class);
@@ -66,21 +70,27 @@ public class AllJobs {
         Job job5 = Job.getInstance(conf, "pa2_job5");
         job5.setJarByClass(Job5.class);
         job5.setNumReduceTasks(32);
+        job5.setPartitionerClass(Job5.Job5Partitioner.class);
         job5.setReducerClass(Job5.Job5Reducer.class);
         job5.setOutputKeyClass(Text.class);
         job5.setOutputValueClass(Text.class);
 
         FileInputFormat.addInputPath(job1, new Path(args[0]));
         FileOutputFormat.setOutputPath(job1, new Path("temp_job1"));
+
         FileInputFormat.addInputPath(job2, new Path("temp_job1"));
         FileOutputFormat.setOutputPath(job2, new Path("temp_job2"));
+
         FileInputFormat.addInputPath(job3, new Path("temp_job2"));
         FileOutputFormat.setOutputPath(job3, new Path("temp_job3"));
+
         FileInputFormat.addInputPath(job4, new Path("temp_job3"));
         FileOutputFormat.setOutputPath(job4, new Path("temp_job4"));
+
         MultipleInputs.addInputPath(job5, new Path("temp_job4"), TextInputFormat.class, Job5.Job5MapperClass1.class);
-        MultipleInputs.addInputPath(job5, new Path(args[0]), TextInputFormat.class, Job5.Job5MapperClass2.class);
-        FileOutputFormat.setOutputPath(job5, new Path(args[1]));
+        MultipleInputs.addInputPath(job5, new Path(args[1]), TextInputFormat.class, Job5.Job5MapperClass2.class);
+
+        FileOutputFormat.setOutputPath(job5, new Path(args[2]));
 
         if(job1.waitForCompletion(true)){
             if(job2.waitForCompletion(true)){

@@ -64,6 +64,15 @@ public class Job1 {
         }
     }
 
+    public static class Job1Partitioner extends Partitioner<CompositeKey, IntWritable>{
+
+        public int getPartition(CompositeKey key, IntWritable Value, int numPartitions){
+
+            int hash = Math.abs(Integer.parseInt(key.docId.toString()));
+            return hash % numPartitions;
+        }
+    }
+
     /**
      *  Writes: Document ID <TAB> Unigram <TAB> Frequency
      * */

@@ -33,6 +33,15 @@ public class Job3 {
 
     }
 
+    public static class Job3Partitioner extends Partitioner<Text, Text>{
+
+        public int getPartition(Text key, Text Value, int numPartitions){
+
+            int hash = Math.abs(key.toString().hashCode());
+            return hash % numPartitions;
+        }
+    }
+
 
     /**
      *  Writes Document ID <TAB> unigram <TAB> Frequency <TAB> Ni
